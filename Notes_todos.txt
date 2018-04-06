@@ -1,0 +1,120 @@
+npm install -g create-react-app
+create-react-app 01_react_basics
+-> create-react-app . Used to create the app in the current folder
+cd 01_react_basics
+npm start Start the app
+->npm run build for production
+
+All our JS code is bundled at the end in one single index.html file and a bundle.js file using Webpack and Babel.
+
+src/index.js is the main file used to start our app and public/index.html is the file rendered when we launch our app.
+1. Delete all the files in the src and public folder except index.js and index.html.
+2. Delete everything in index.js
+Note: Components and Views are building blocks of a react app.
+
+3. JSX is HTML written in our JS code.
+
+import React from 'react'; // Imported from node modules.
+import ReactDom from 'react-dom';
+
+const App = () => {
+    return <h1>This is a test!</h1>; //This is JSX
+}
+
+//ReactDom.render(<App/>, root); // We told react to render the App component inside the div with id="root" in our HTML.
+
+ReactDom.render(<App/>, document.querySelector('#root'));
+
+Behind the scenes, React is creating DOM elements for us.
+const App = () => {
+    return React.createElement('h1', {className: 'title'}, React.createElement('div', null, 'This is a test!'))
+}
+The first argument is the element tag, the second element is an object of attributes and the third element is the content of the tag.
+This is cumbersome and hence we use tags instead of writing the createElement statements.
+
+When using JSX, 
+1. we should return a single root element
+2. the attribute names are different from that of HTML. Most of them are camel cased.
+TODO:  JSX is JS, so we must use JS name equivalents.
+https://reactjs.org/docs/dom-elements.html
+
+
+Project Structure:
+1. React projects are made up of components nested in the main component (Here App).
+2. Before creating a project, we have to design this hierarchy of components. For example in the case of a news app, we have
+- the main App component
+- the header
+- the news component
+- the individual news item component that we place inside the news component.
+
+The header component:
+
+import React from 'react';
+
+const getYear = () =>  {
+    return new Date().getFullYear();
+};
+
+const user = {
+    firstname: 'Yovan',
+    lastname: 'Juggoo',
+    profession: 'Programmer'
+};
+
+const Header = () => {
+    return (
+        <div>
+            <div>This is the Header</div>
+            <ul>
+                <li>Current Year: { getYear() }</li>
+                <li>The value of PI is { Math.PI } </li>
+                <li>My name is {user.firstname} {user.lastname}</li>
+            </ul>
+        </div>
+    );
+};
+
+export default Header;
+
+
+The header component is a functional component. This means that this component does not care about other components.
+If we were to interact with other components, we'd like to use class based components.
+Class based components extend React.Component.
+These components should have a render() method so that they can be rendered accrordingly.
+
+import React, { Component } from 'react';
+
+const getYear = () =>  {
+    return new Date().getFullYear();
+};
+
+const user = {
+    firstname: 'Yovan',
+    lastname: 'Juggoo',
+    profession: 'Programmer'
+};
+
+class Header extends Component {
+    render() {
+        return (
+            <div>
+                <div>This is the Header</div>
+                <ul>
+                    <li>Current Year: { getYear() }</li>
+                    <li>The value of PI is { Math.PI } </li>
+                    <li>My name is {user.firstname} {user.lastname}</li>
+                </ul>
+            </div>
+        );
+    }
+}
+
+export default Header;
+
+Styling
+-------------
+- Inline styling using a styles object
+- Global styles in a css file  in the public folder and add a link in index.html
+- The css file is added in the src folder and we import it in our Component.
+
+When a using the constructor inside of a Component Class, we should call super(), so that the properties of the parent Component class are added to our components.

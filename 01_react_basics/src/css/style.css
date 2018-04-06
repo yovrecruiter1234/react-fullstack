@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+}
+
+#header2 .heading {
+    background-color: #03a9f4
+}
+
+.logo {
+    color: '#fff';
+    font-family: 'Anton';
+    text-align: 'center'
+}
